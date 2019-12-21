@@ -10,7 +10,7 @@ body, html {
 
 .main_title_animation {
     animation: main_title_letter_anim;
-    animation-duration: .25s;
+    animation-duration: .5s;
 }
 
 @keyframes main_title_letter_anim {

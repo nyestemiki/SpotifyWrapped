@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AppStyle, { Main } from './styles/AppStyles';
+import AppStyle, { Main, MainTitle } from './styles/AppStyles';
 import Curtains from './Curtains';
 import Pages from '../pages';
 
@@ -15,7 +15,21 @@ export default class App extends Component {
 		scaleDepth: 1.5,
 		numberScales: 0,
 		curtains: false,
-		page: 0
+		page: 0,
+		rotateX: 0,
+		rotateY: 0
+	}
+
+	handleMousemove = event => {		
+		setInterval(() => {
+			const x =  1*(event.clientX-window.innerWidth/2)/10;
+			const y = -1*(event.clientY-window.innerHeight/2)/10;
+
+			console.log(event.clientX, x, event.clientY, y);
+
+			this.setState({ rotateX: y });
+			this.setState({ rotateY: x });
+		}, 300);
 	}
 
 	handleScroll = event => {		
@@ -65,7 +79,7 @@ export default class App extends Component {
 		let transitionsEnabled = true;
 
 		// zoom all the way in
-		this.setState({ scale: 15 });
+		this.setState({ scale: 10 });
 		// draw the curtains
 		main.addEventListener("transitionend", () => {
 			const main_title = main.querySelector("#main_title");
@@ -81,7 +95,7 @@ export default class App extends Component {
 				// update the assets
 				main_title.style = "color: black;"
 				// take down the curtains
-				this.setState({ page: 1 });
+				this.setState({ page: currentPage+1 });
 				this.setState({ curtains: false });
 				// fire the animation
 				main.addEventListener("transitionend", () => {
@@ -95,12 +109,12 @@ export default class App extends Component {
 				});
 			});
 		});	
-
 	}
 	
 	componentDidMount() {
 		this.setState({ pages: Pages });
 		document.addEventListener("wheel", this.handleScroll);
+		// document.addEventListener("mousemove", this.handleMousemove);
 	}
 
   	render() {
@@ -115,7 +129,13 @@ export default class App extends Component {
 					pivotX={this.state.pages[this.state.page].pivotX}
 					pivotY={this.state.pages[this.state.page].pivotY}
 				>
-					<div id="main_title"> {this.state.pages[this.state.page].title} </div>
+					<MainTitle 
+						id="main_title"
+						rotateX={this.state.rotateX}
+						rotateY={this.state.rotateY}
+					> 
+						{this.state.pages[this.state.page].title}
+					</MainTitle>
 				</Main>
 				<Curtains 
 					status={this.state.curtains}
