@@ -13,8 +13,8 @@ const Main = styled.div`
     font-size: 60vh;
     font-weight: 600;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    transition: all .5s ease-in-out;
-    transform-origin: 32.22% 22%;
+    transition: transform ${p => p.scale < 5 ? '.5' : '1.5'}s ease-out;
+    transform-origin: 32.5% 22%;
     transform: scale( ${p => p.scale} );
 `;
 

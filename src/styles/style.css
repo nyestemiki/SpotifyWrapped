@@ -7,3 +7,16 @@ body, html {
     height: 100vh;
     overflow: hidden;
 }
+
+.main_title_animation {
+    animation: main_title_letter_anim;
+    animation-duration: 1s;
+}
+
+@keyframes main_title_letter_anim {
+    from {
+        transform: rotateX(-50deg);
+    } to {
+        transform: rotateX(0);
+    }
+}
