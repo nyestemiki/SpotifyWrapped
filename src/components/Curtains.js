@@ -9,7 +9,7 @@ const CurtainStyle = styled.div`
     height: 100vh;
     overflow: hidden;
     z-index: 1000;
-    background: black;
+    background: ${p => p.color};
 `;
 
 export default class Curtains extends Component {
